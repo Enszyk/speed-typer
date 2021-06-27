@@ -1,5 +1,10 @@
 import { ref } from "vue";
-import { LetterState } from "./speedTyperLogic"
+
+export enum LetterState {
+  None = 0,
+  Wrong = -1,
+  Correct = 1,
+}
 
 export const sentenceToType = ref("lorem molem olem.");
 export const textToArray = ref(sentenceToType.value.split(" "))

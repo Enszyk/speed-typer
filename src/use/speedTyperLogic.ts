@@ -1,12 +1,8 @@
 import { computed } from "vue";
 import { maxWordsTyped, writtenText } from "./speedTyperHandleUser";
-import { textToArray, textToObject } from "./speedTyperInitGame";
+import { LetterState, textToArray, textToObject } from "./speedTyperInitGame";
 
-export enum LetterState {
-  None = 0,
-  Wrong = -1,
-  Correct = 1,
-}
+
 
 export const getFirstUncompletedWorld = computed(() => {
   return textToArray.value[0]
