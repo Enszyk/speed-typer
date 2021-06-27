@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="text-lg">
     Speed typer
   </div>
 </template>
