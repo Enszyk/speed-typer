@@ -5,25 +5,30 @@
         {{ letter.letter }}
       </span>
     </div>
-    {{ textToArray }}
-    {{ getFirstUncompletedWorld }}
-
+    <div v-for="letter in textToObject" :key="letter.id">
+      {{ letter.letter }}
+      {{ letter.id }}
+      {{ letter.state }}
+    </div>
     <input
       type="text"
       class="mt-10 bg-transparent outline-none text-gray-200 border-b-2 border-gray-200"
       v-model="typedText"
     />
+    {{ writtenText }}
+    {{ maxWordsTyped }}
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, watch } from "vue";
+import { getFirstUncompletedWorld } from "./use/speedTyperLogic";
+import { textToArray, textToObject } from "./use/speedTyperInitGame";
 import {
-  textToArray,
-  getFirstUncompletedWorld,
-  textToObject,
   handleUserInput,
-} from "./use/speedTyperLogic";
+  writtenText,
+  maxWordsTyped,
+} from "./use/speedTyperHandleUser";
 
 export default defineComponent({
   name: "App",
@@ -31,7 +36,7 @@ export default defineComponent({
     const typedText = ref("");
 
     watch(typedText, (value) => {
-      typedText.value = handleUserInput(value)
+      typedText.value = handleUserInput(value);
     });
 
     return {
@@ -39,6 +44,8 @@ export default defineComponent({
       textToObject,
       textToArray,
       getFirstUncompletedWorld,
+      writtenText,
+      maxWordsTyped,
     };
   },
 });
