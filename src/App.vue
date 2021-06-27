@@ -2,11 +2,11 @@
   <div class="bg-gray-600 min-h-screen text-center pt-24">
     <div class="w-1/3 mx-auto text-gray-200">
       <span v-for="letter in textToObject" :key="letter.id">
-        {{letter.letter}}
+        {{ letter.letter }}
       </span>
     </div>
-    {{textToArray}}
-    {{getFirstUncompletedWorld}}
+    {{ textToArray }}
+    {{ getFirstUncompletedWorld }}
 
     <input
       type="text"
@@ -17,47 +17,28 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from "vue";
+import { defineComponent, ref, watch } from "vue";
+import {
+  textToArray,
+  getFirstUncompletedWorld,
+  textToObject,
+  handleUserInput,
+} from "./use/speedTyperLogic";
 
 export default defineComponent({
   name: "App",
   setup() {
     const typedText = ref("");
 
-    const text = ref("lorem molem olem");
-
-    const textToArray = ref(text.value.split(" "))
-
-    const getFirstUncompletedWorld = computed(() => {
-      return textToArray.value[0]
-    })
-
-    const textToObject = computed(() => {
-      return text.value.split("").map((word, index) => {
-        return {
-          letter: word,
-          id: index,
-          state: null,
-        };
-      });
+    watch(typedText, (value) => {
+      typedText.value = handleUserInput(value)
     });
 
-
-
-    watch(typedText, (value) => {
-      if (value === getFirstUncompletedWorld.value){
-        textToArray.value.shift()
-        typedText.value = ""
-      }
-    })
-
-
     return {
-      text,
       typedText,
       textToObject,
       textToArray,
-      getFirstUncompletedWorld
+      getFirstUncompletedWorld,
     };
   },
 });
