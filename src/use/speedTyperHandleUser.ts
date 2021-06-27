@@ -1,10 +1,13 @@
-import { ref } from "vue"
+import { computed, ref } from "vue"
 import { textToArray } from "./speedTyperInitGame"
 import { calculateInGameFeedback, getFirstUncompletedWorld, wordsMatch } from "./speedTyperLogic"
 
 const writtenTextCopy = ref("")
 export const writtenText = ref("")
 export const maxWordsTyped = ref(0)
+
+// Used as bottom boundary when checking letters correctness
+export const correctWordsLength = computed(() => writtenTextCopy.value.length)
 
 export const handleUserInput = (value: string): string => {
   writtenText.value = writtenTextCopy.value + value
