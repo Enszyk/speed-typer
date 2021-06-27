@@ -2,6 +2,11 @@ import { computed } from "vue";
 import { maxWordsTyped, writtenText } from "./speedTyperHandleUser";
 import { textToArray, textToObject } from "./speedTyperInitGame";
 
+export enum LetterState {
+  None = 0,
+  Wrong = -1,
+  Correct = 1,
+}
 
 export const getFirstUncompletedWorld = computed(() => {
   return textToArray.value[0]
@@ -22,13 +27,13 @@ export const calculateInGameFeedback = (): void => {
   const iterateTo = Math.min(textToObject.value.length, maxWordsTyped.value)
   for (let i = 0; i < iterateTo; i++) {
     if (writtenText.value.length <= i)
-      textToObject.value[i].state = ""
+      textToObject.value[i].state = LetterState.None
     else if (isWrong || writtenText.value[i] !== textToObject.value[i].letter) {
-      textToObject.value[i].state = "wrong"
+      textToObject.value[i].state = LetterState.Wrong
       isWrong = true
     }
     else
-      textToObject.value[i].state = "correct"
+      textToObject.value[i].state = LetterState.Correct
   }
 }
 
