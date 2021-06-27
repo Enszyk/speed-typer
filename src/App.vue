@@ -5,6 +5,9 @@
         {{letter.letter}}
       </span>
     </div>
+    {{textToArray}}
+    {{getFirstUncompletedWorld}}
+
     <input
       type="text"
       class="mt-10 bg-transparent outline-none text-gray-200 border-b-2 border-gray-200"
@@ -14,13 +17,21 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, ref, watch } from "vue";
 
 export default defineComponent({
   name: "App",
   setup() {
     const typedText = ref("");
+
     const text = ref("lorem molem olem");
+
+    const textToArray = ref(text.value.split(" "))
+
+    const getFirstUncompletedWorld = computed(() => {
+      return textToArray.value[0]
+    })
+
     const textToObject = computed(() => {
       return text.value.split("").map((word, index) => {
         return {
@@ -30,10 +41,23 @@ export default defineComponent({
         };
       });
     });
+
+
+
+    watch(typedText, (value) => {
+      if (value === getFirstUncompletedWorld.value){
+        textToArray.value.shift()
+        typedText.value = ""
+      }
+    })
+
+
     return {
       text,
       typedText,
       textToObject,
+      textToArray,
+      getFirstUncompletedWorld
     };
   },
 });
