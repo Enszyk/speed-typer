@@ -14,10 +14,10 @@
       class="mt-10 bg-transparent outline-none text-gray-200 border-b-2 border-gray-200"
       v-model="typedText"
     />
-    <br>
+    <br />
     <button @click="startTimer" class="text-gray-50 mr-10">Start</button>
     <button @click="stopTimer" class="text-gray-50">Stop</button>
-    <br>
+    <br />
     {{ time }}
   </div>
 </template>
@@ -36,12 +36,12 @@ import {
   maxWordsTyped,
 } from "./use/speedTyperHandleUser";
 
+import { time, startTimer, stopTimer } from "./use/timerLogic";
+
 export default defineComponent({
   name: "App",
   setup() {
     const typedText = ref("");
-    const time = ref('0');
-    const interval = ref(0);
 
     watch(typedText, (value) => {
       typedText.value = handleUserInput(value);
@@ -55,19 +55,6 @@ export default defineComponent({
           return "text-gray-200 bg-red-500";
       }
     };
-
-    const incerementTime = () => {
-      time.value = (parseFloat(time.value) + 0.01).toFixed(2)
-    }
-
-    const startTimer = () => {
-      interval.value = setInterval(() => (incerementTime()), 10);
-    };
-
-    const stopTimer = () => {
-      clearInterval(interval.value)
-    }
-
     return {
       typedText,
       textToObject,
