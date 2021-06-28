@@ -15,9 +15,6 @@
       v-model="typedText"
     />
     <br />
-    <button @click="startTimer" class="text-gray-50 mr-10">Start</button>
-    <button @click="stopTimer" class="text-gray-50">Stop</button>
-    <br />
     {{ time }}
   </div>
 </template>

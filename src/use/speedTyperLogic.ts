@@ -1,4 +1,4 @@
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { correctWordsLength, maxWordsTyped, writtenText } from "./speedTyperHandleUser";
 import { LetterState, textToArray, textToObject } from "./speedTyperInitGame";
 
@@ -9,7 +9,10 @@ export const getFirstUncompletedWorld = computed(() => {
 })
 
 
+export const gameEnded = ref(false)
+
 const isLastWord = computed(() => textToArray.value.length === 1)
+
 export const wordsMatch = (typedWord: string, correctWord: string): boolean => {
   if (isLastWord.value)
     return typedWord === correctWord
