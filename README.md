@@ -1,5 +1,8 @@
 # speed-typer
 
+Demo 
+https://enszyk.github.io/speed-typer/
+
 ## Project setup
 ```
 npm install
